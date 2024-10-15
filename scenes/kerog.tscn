@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://df324gyoyqji5"]
+
+[ext_resource type="Script" path="res://scenes/kerog.gd" id="1_bu21b"]
+[ext_resource type="Texture2D" uid="uid://b2dnwwukwoxou" path="res://assets/sprites/enemies.png" id="1_m01iu"]
+[ext_resource type="Script" path="res://health_component.gd" id="2_jd5cv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33hac"]
+atlas = ExtResource("1_m01iu")
+region = Rect2(486, 182, 32, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwafe"]
+atlas = ExtResource("1_m01iu")
+region = Rect2(522, 182, 32, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqjra"]
+atlas = ExtResource("1_m01iu")
+region = Rect2(558, 182, 32, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h44r5"]
+atlas = ExtResource("1_m01iu")
+region = Rect2(594, 182, 32, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h13xm"]
+atlas = ExtResource("1_m01iu")
+region = Rect2(630, 182, 32, 33)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gw5dr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33hac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwafe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33hac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwafe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33hac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwafe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqjra")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h44r5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h13xm")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c50jj"]
+radius = 24.0
+
+[node name="Node2D" type="AnimatableBody2D"]
+script = ExtResource("1_bu21b")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_jd5cv")
+starting_health = 30
+max_health = 30
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_gw5dr")
+autoplay = "default"
+frame_progress = 0.527736
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_c50jj")

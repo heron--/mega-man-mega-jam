@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bffsmcb3aqpc7"]
+
+[ext_resource type="Texture2D" uid="uid://0d7o2jkvhk0f" path="res://assets/sprites/bubbleman-tiles.png" id="1_df1oa"]
+[ext_resource type="Script" path="res://scenes/falling_platform.gd" id="1_goxpa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo16h"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uyg0s"]
+size = Vector2(64, 24)
+
+[node name="falling_platform" type="RigidBody2D"]
+contact_monitor = true
+max_contacts_reported = 3
+script = ExtResource("1_goxpa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_df1oa")
+region_enabled = true
+region_rect = Rect2(122, 147, 32, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wo16h")
+
+[node name="Area2D" type="Area2D" parent="."]
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_uyg0s")
+
+[node name="TriggerTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="CleanUpTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="TriggerTimer" to="." method="_on_trigger_timer_timeout"]
+[connection signal="timeout" from="CleanUpTimer" to="." method="_on_clean_up_timer_timeout"]
